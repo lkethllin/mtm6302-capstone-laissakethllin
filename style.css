@@ -1,0 +1,522 @@
+:root {
+    --main-color: #f5f5f5;
+    --main-green: #D1F4DE;
+    --main-blue: #BCD5EF;
+    --main-purple: #C9C7EE;
+    --main-red: #FEC9C3;
+    --main-yellow: #FCE2BC;
+    --button-color: #C6C9EE;
+    --button-hover: #ffd633;
+    --font-color: #333;
+
+    /*pokemon colors*/
+    --type-grass: #98c97f;
+    --type-poison: #a366a3;
+    --type-fire: #eda571;
+    --type-ice: #98D8D8;
+    --type-electric: #fedc54;
+    --type-water: #6890f0;
+    --type-flying: #a890f0;
+    --type-psychic: #f785a7;
+    --type-rock: #75574d;
+    
+
+}
+/*body*/
+
+@font-face {
+    font-family: 'VVDS_Organum';
+    src: url('assets/VVDS_Organum\ Bold.otf') format('otf');
+    font-weight: bold;
+    font-style: normal;
+}
+
+body,html{
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/*header*/
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header img {
+    width: 80px;
+}
+
+header a {
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+
+header a:hover {
+    color: #f08a5d;
+    transition: color 0.3s ease;
+}
+
+
+/*Login page*/
+
+.login {
+    display: grid;
+    gap: 50px;
+    text-align: center; 
+    padding: 50px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+   
+ 
+}
+
+.welcomemsg p{ 
+    margin: 0;
+}
+h2 {
+    font-family: 'VVDS_Organum', sans-serif;
+    font-weight: bold;
+    margin: 0;
+    font-size: 30px;}
+
+h1 {
+    font-family: 'VVDS_Organum', sans-serif;
+   }
+
+   h3{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+   }
+
+#fname{
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #e9e1e1;
+    color: #333;
+    text-decoration: none;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #C6C9EE;
+    color: #333;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #b3aa00;
+}
+ /* Pokemon Card*/
+
+ main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    flex: 1;
+    justify-content: center;
+}
+.message {
+    display: block;
+    align-self: flex-start;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+}
+.message> h1, h3 {
+    margin: 0;
+    
+}
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content:space-around;
+    background: linear-gradient(to bottom right, #ffffff, #e0e0e0); /* Gradient background */
+    border-top-left-radius: 250px; /* Rounded corners */
+    border-top-right-radius: 250px; /* Rounded corners */
+    border: 10px solid var(--main-green);
+    padding: 10px; /* Inner spacing */
+    width: auto; /* Card width */
+    height:auto;
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.2), 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    transition: transform 0.3s; /* Smooth hover effect */
+    
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card > img {
+    object-fit: contain;
+    align-self: center;
+    padding: 20px;
+    padding-bottom: 0%;
+
+}
+
+.pokeinfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    
+}
+
+
+.poketext h4 {
+    margin: 0;
+    font-size: 12px;
+    color: #333;
+    font-family: 'VVDS_Organum', sans-serif;
+}
+
+.poketext p {
+    margin: 5px 0 0;
+    font-size: 16px;
+    color: #777;
+    font-family: 'poppins', sans-serif;
+}
+
+
+/* load more button */
+
+#loadMore {
+    display: block;
+    margin: 20px auto; 
+    padding: 10px 20px;
+    background-color: #C6C9EE;
+    font-family: 'VVDS_Organum', sans-serif;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#loadMore:hover {
+    background-color: #ffd633; /* Lighter yellow on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+#loadMore:active {
+    background-color: #e6b800; /* Darker yellow when clicked */
+    transform: translateY(0); /* Remove lift effect */
+}
+
+/*Footer*/
+
+.bg{
+    background: linear-gradient(to bottom, white, #FCE2BC,#FEC9C3,#C9C7EE,#BCD5EF,#D1F4DE);
+    opacity: 0.6;
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+}
+
+footer img {
+    width: 80px;
+}
+
+footer a {
+    font-size: 18px;
+    text-decoration: none;
+    color: #333;
+    }
+
+footer a:hover {
+    color: #f08a5d;
+    transition: color 0.3s ease;
+}
+
+footer a img {
+    width: 80px;
+    vertical-align: middle;
+}
+
+.fa-instagram {
+       width: 80px;
+}
+
+img.pokeball-icon {
+        width: 20px; 
+        height: 20px;
+        display: none; 
+}
+
+/* Card Page Layout */
+
+/* Overlay for semi-transparent background */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    z-index: 1000; /* Layer it beneath the modal */
+    display: none; 
+}
+
+/* Modal styles */
+.cardPage {
+    width: 80%;
+    max-width: 600px;
+    margin: 10% auto;
+    background: var(--main-green);
+    border-radius: 50px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-content: center;
+    justify-content: space-around;
+    align-items: center;
+    height: max-content;
+
+    /* Centering Styles */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+    display: none;
+}
+
+/* Show overlay and modal when active */
+.show-overlay {
+    display: block;
+}
+
+.close {
+    z-index: 1002; /* Higher than the overlay and modal */
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #333;
+    width: 80%;
+    height: 100%;
+    margin: 20px;
+}
+
+.cardHeader h3 {
+    font-size: 2rem;
+    font-family: 'VVDS_Organum', sans-serif;
+    font-weight: bold;
+}
+
+.headerInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+ .close {
+    display: inline-flex; 
+    justify-content: center;
+    align-items: center; 
+    width: 30px; 
+    height: 30px; 
+    background-color: var(--font-color);
+    color:var(--main-color); 
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 50%; 
+    cursor: pointer; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+  
+}
+
+#pokemonNumber {
+    font-size: 0.7rem;
+    color: var(--font-color);
+    font-family: 'VVDS_Organum', sans-serif;
+}
+
+/* Card Main Section */
+#cardMain {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    align-content: space-around;
+    background-color: white;
+    width: 100%;
+
+}
+
+#cardInfo {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+    gap: 15px;
+    width: 95%;
+    padding: 20px;
+}
+
+#cardImage {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pokemon-image {
+    width: 120px;
+    height: auto;
+}
+
+.caught-section {
+    margin-top: 5px;
+    text-align: center;
+    font-size: 0.8rem;
+    font-family: 'VVDS_Organum', sans-serif;
+}
+
+#characteristics {
+    background:var(--main-color);
+    padding: 15px;
+    border-radius: 15px;
+    width: 50%;
+    height: min-content;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+}
+
+#characteristics h4 {
+    font-size: 0.9rem;
+    color: #333;
+    font-weight: bold;
+    font-family: 'VVDS_Organum', sans-serif;
+    margin: 0;
+}
+ul{
+   padding: 0;
+   list-style-type: none;;
+}
+#characteristics p {
+    font-size: 0.8rem;
+    color: #555;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Types and Weaknesses */
+
+/* Color classes for types */
+.fire { background-color: var(--type-fire); }
+.water { background-color: var(--type-water); }
+.grass { background-color: var(--type-grass); }
+.poison { background-color:var(--type-poison); }
+.ice { background-color:var(--type-ice); }
+.electric { background-color:var(--type-electric); }
+.flying { background-color:var(--type-flying); }
+.psychic { background-color:var(--type-psychic); }
+.rock { background-color:var(--type-rock); }
+
+.pokemon-info {
+    display: flex;
+    justify-content: space-around;
+    width: 95%;
+    padding: 20px;
+}
+
+.type-section, .weakness-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.type-section p, .weakness-section p{
+    margin: 0;
+    
+}
+
+.type-section h4, .weakness-section h4 {
+    font-size: 0.9rem;
+    color: var(--font-color);
+    font-weight: bold;
+    font-family: 'VVDS_Organum', sans-serif;
+    justify-content: right;
+}
+
+.type, .weakness {
+    display: inline-block;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 50px;
+    color: var(--font-color);
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+
+/* Evolution Section */
+#evolutionSection {
+    display: flex;
+    gap: 10px;
+    padding: 10px 0;
+    background: var(--main-color);
+    border-radius: 15px;
+    justify-content: space-around;
+    width: 100%;
+}
+
+#evolutionSection .card {
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+#evolutionSection .pokemon-image {
+    width: 60px;
+    height: auto;
+}
+
+.cardFooter{
+    margin: 20px;
+    height: 100%;
+}

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capstone Project</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+</head>
+<body>
+    <header>
+        <a href="login.html"><img src="assets/logo.png" alt="Logo"></a>
+        <a href="index.html">Pokédex</a>
+        <img src="assets/profile.png" alt="Profile">
+    </header>    
+    
+<main>
+    <div class="message">
+        <h3>Hello <span id="displayUserName"></span>,</h3>
+        <h1>This is your Pokédex</h1>
+    </div>
+    
+    <div class="gallery">
+         <!-- <div class="card" data-pokemon-id="1">
+            <img src="assets/pokemons/bulbasaur.png" class="pokemon-image" alt="">
+            <div class="pokeinfo">
+                <div class="poketext">
+                    <h4>#0001</h4>
+                    <p>Bulbasaur</p>
+                </div>
+                <input type="checkbox" id="caught-checkbox">
+                <img src="assets/pokeball.png" alt="Pokéball" class="pokeball-icon" style="display:none;">
+            </div>
+        </div> -->
+    </div>
+    <button id="loadMore">Load More</button>
+</main>
+<div class="bg">
+    <footer>
+        <a href="login.html"><img src="assets/logo.png" alt="Logo"></a>
+        <a href="https://instagram.com" target="_blank" class="fa fa-instagram" ></a>
+    </footer>
+</div>
+
+<!-- Modal (Card page) -->
+<div id="overlay" class="overlay"></div>
+<div id="cardPage" class="cardPage">
+    <div class="cardHeader">
+        <h3 id="pokemonName">Bulbasaur</h3>
+        <div class="headerInfo">
+            <span class="close">&times;</span>
+            <p id="pokemonNumber">#0001</p>
+        </div>
+    </div>
+    <div id="cardMain">
+        <div id="cardInfo">
+            <div id="cardImage">
+                <div class="card" data-pokemon-id="1">
+                    <img src="assets/pokemons/bulbasaur.png" alt="" class="pokemon-image">
+                </div>
+                <div class="caught-section">
+                    <label>
+                        <input type="checkbox" id="caughtCheckbox">
+                        <span class="caught-label">Caught</span>
+                        <img src="assets/pokeball.png" alt="Pokéball" class="pokeball-icon" id="pokeballIcon">
+                    </label>
+                </div>
+            </div>
+            <div id="characteristics">
+                <div class="height">
+                    <h4>Height</h4>
+                    <p id="height">3'33'</p>
+                </div>
+                <div class="category">
+                    <h4>Category</h4>
+                    <p id="category">Seed</p>
+                </div>
+                <div class="weight">
+                    <h4>Weight</h4>
+                    <p id="weight">10 lbs</p>
+                </div>
+                <div class="ability-section">
+                    <h4>Abilities</h4>
+                    <ul class="ability">
+                        <li><p>Overgrow</p></li>
+                        <li><p>Chlorophyll</p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="pokemon-info">
+            <div class="type-section">
+                <h4>Type</h4>
+                <div id="types"></div>
+            </div>
+            <div class="weakness-section">
+                <h4>Weaknesses</h4>
+                <div id="weaknesses"></div>
+        </div>
+        </div>
+        <div id="evolutionSection">
+            <div class="card" data-pokemon-id="1">
+                <img src="assets/pokemons/bulbasaur.png" alt="" class="pokemon-image">
+                <div class="poketext">
+                    <h4>#0001</h4>
+                    <p>Bulbasaur</p>
+                </div>
+            </div>
+            <div class="card" data-pokemon-id="1">
+                <img src="assets/pokemons/bulbasaur.png" alt="" class="pokemon-image">
+                <div class="poketext">
+                    <h4>#0001</h4>
+                    <p>Bulbasaur</p>
+                </div>
+            </div>
+            <div class="card" data-pokemon-id="1">
+                <img src="assets/pokemons/bulbasaur.png" alt="" class="pokemon-image">
+                <div class="poketext">
+                    <h4>#0001</h4>
+                    <p>Bulbasaur</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cardFooter"></div>
+</div>
+
+
+    <script src="script.js"></script> 
+    <script src="extrascript.js"></script> 
+    <script> window.onload = function() {
+        // Retrieve the stored name from local storage
+        var name = localStorage.getItem("userName");
+    
+        // Display the name in the <span> element
+        document.getElementById("displayUserName").textContent = name || "Trainer";
+    } </script>
+
+
+
+</body>
+
+</html>

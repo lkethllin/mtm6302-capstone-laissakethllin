@@ -1,0 +1,5 @@
+- [ ] Figure out how to make the checkbox checked when you open the modal, if the user have checked it before. Same thing if the user checks in the modal, I want it to be checked when the modal closes
+- [ ] Create a way to style the buttons based on their weakness or type. I want background color to change accordingly
+- [ ] Create something to change the background color of the cards depending on their types. it is probably the same way as the previous task
+- [x] Create a small profile page, where the user can login, create password. Is that difficult?  If it is too dificult, when can just create a welcome page asking for the user to put their name, and when he presses enter ir redirects to the main pokedex page saying hey "someone", this is your pokedex
+- [x] Style the Modal according to the mockup

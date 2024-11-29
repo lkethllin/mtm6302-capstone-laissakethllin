@@ -1,13 +1,10 @@
-const gallery = document.querySelector('.gallery');
-const loadMoreButton = document.getElementById('loadMore');
-const modal = document.getElementById("cardPage");
-const overlay = document.getElementById("overlay");
-const closeButton = document.querySelector('.close');
-const pokemonPerLoad = 20;
-let loadedPokemons = 0;
-let caughtStates = loadCaughtStates(); // Load caught states from localStorage
+const gallery = document.getElementById('gallery');
+let caughtStates = loadCaughtStates(); // Load caught Pokémon from localStorage
 
-// Function to fetch Pokémon data from the API
+// Define border colors for Pokémon cards
+const borderColors = ['#FEC9C3', '#D1F4DE', '#BCD5EF', '#C9C7EE', '#FCE2BC'];
+
+// Function to fetch Pokémon data
 async function fetchPokemonData(pokemonId) {
     try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
@@ -22,8 +19,8 @@ async function fetchPokemonData(pokemonId) {
 
         return {
             id: data.id,
-            name: data.name,
-            image: data.sprites.front_default, // Sprite image (smaller version)
+            name: data.name.charAt(0).toUpperCase() + data.name.slice(1), // Capitalize name
+            image: data.sprites.front_default, // Small sprite image
             largeImage: data.sprites.other['official-artwork'].front_default, // Large image for modal
             types: data.types.map(t => t.type.name),
             weaknesses: await fetchWeaknesses(data.types.map(t => t.type.url)),
@@ -35,10 +32,9 @@ async function fetchPokemonData(pokemonId) {
         };
     } catch (error) {
         console.error("Error fetching Pokémon data:", error);
+        return null;
     }
 }
-
-
 
 // Function to fetch weaknesses based on Pokémon types
 async function fetchWeaknesses(typeUrls) {
@@ -51,8 +47,74 @@ async function fetchWeaknesses(typeUrls) {
     return [...weaknesses];
 }
 
+// Display caught Pokémon in the gallery
+async function displayCaughtPokemon() {
+    gallery.innerHTML = ''; // Clear the gallery
+    for (const pokemonId of caughtStates) {
+        const pokemon = await fetchPokemonData(pokemonId);
+        if (!pokemon) continue;
+
+        // Create a card for each Pokémon
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.dataset.pokemonId = pokemon.id; // Store Pokémon ID in the card
+
+        // Assign a border color based on the Pokémon ID
+        const borderColor = borderColors[(pokemon.id - 1) % borderColors.length];
+        card.style.border = `6px solid ${borderColor}`;
+
+        card.innerHTML = `
+            <img src="${pokemon.image}" class="pokemon-image" alt="${pokemon.name}">
+            <div class="pokeinfo">
+                <div class="poketext">
+                    <h4>#${pokemon.id.toString().padStart(4, '0')}</h4>
+                    <p>${pokemon.name}</p>
+                </div>
+                <div>
+                    <input type="checkbox" id="caught-checkbox-${pokemon.id}" class="caught-checkbox" checked>
+                </div>
+            </div>
+        `;
+
+        gallery.appendChild(card);
+    }
+
+    addCheckboxListeners(); // Add event listeners to handle unchecking Pokémon
+}
+
+// Load caught Pokémon states from localStorage
+function loadCaughtStates() {
+    const storedPokemonIds = localStorage.getItem('caughtPokemon');
+    return storedPokemonIds ? JSON.parse(storedPokemonIds) : [];
+}
+
+// Save caught Pokémon states to localStorage
+function saveCaughtStates() {
+    localStorage.setItem('caughtPokemon', JSON.stringify(caughtStates));
+}
+
+// Add listeners to checkboxes for unchecking Pokémon
+function addCheckboxListeners() {
+    const checkboxes = document.querySelectorAll('.caught-checkbox');
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', (event) => {
+            const pokemonId = checkbox.id.split('-').pop();
+            if (!checkbox.checked) {
+                // Remove Pokémon from caughtStates
+                caughtStates = caughtStates.filter(id => id !== pokemonId);
+                saveCaughtStates();
+            } else {
+                // Add Pokémon to caughtStates
+                caughtStates.push(pokemonId);
+                saveCaughtStates();
+            }
+            displayCaughtPokemon(); // Refresh gallery
+        });
+    });
+}
+
 // Function to display evolution chain in modal
-function displayEvolution(evolutionChain, borderColors) {
+function displayEvolution(evolutionChain) {
     const evolutionContainer = document.getElementById('evolutionSection');
     evolutionContainer.innerHTML = ''; // Clear previous evolutions
 
@@ -63,7 +125,7 @@ function displayEvolution(evolutionChain, borderColors) {
     while (currentEvo && count < 3) {
         const evoPokemon = currentEvo.species;
         const pokemonId = evoPokemon.url.split('/')[6]; // Extract Pokémon ID
-        const borderColor = borderColors[(pokemonId - 1) % borderColors.length]; // Match gallery logic
+        const borderColor = borderColors[(pokemonId - 1) % borderColors.length]; // Match border color logic
 
         const evoCard = document.createElement('div');
         evoCard.className = 'card';
@@ -84,60 +146,6 @@ function displayEvolution(evolutionChain, borderColors) {
     }
 }
 
-
-// Generate Pokémon cards and add to gallery
-async function generatePokemonCards(startIndex, endIndex) {
-    const borderColors = ['#FEC9C3', '#D1F4DE', '#BCD5EF', '#C9C7EE', '#FCE2BC']; // Define border colors
-
-    for (let i = startIndex; i < endIndex; i++) {
-        const pokemon = await fetchPokemonData(i + 1);
-        if (!pokemon) continue;
-
-        const isChecked = caughtStates.includes(pokemon.id.toString());
-
-        // Assign a border color based on the Pokémon's index
-        const borderColor = borderColors[i % borderColors.length];
-
-        gallery.innerHTML += `
-            <div class="card" data-pokemon-id="${pokemon.id}" style="border: 6px solid ${borderColor};">
-                <img src="${pokemon.image}" class="pokemon-image" alt="${pokemon.name}">
-                <div class="pokeinfo">
-                    <div class="poketext">
-                        <h4>#${pokemon.id.toString().padStart(4, '0')}</h4>
-                        <p>${pokemon.name}</p>
-                    </div>
-                    <div>
-                        <input type="checkbox" id="caught-checkbox-${pokemon.id}" class="caught-checkbox" ${isChecked ? 'checked' : ''}>
-                        <img src="assets/pokeball.png" alt="Pokéball" class="pokeball-icon" id="pokeball-icon-${pokemon.id}" style="display:${isChecked ? 'block' : 'none'};">
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-
-    addEventListenersToCheckboxes();
-}
-
-
-// Add event listeners to checkboxes for caught Pokémon
-function addEventListenersToCheckboxes() {
-    document.querySelectorAll('.caught-checkbox').forEach((checkbox) => {
-        const pokeballIcon = document.getElementById(`pokeball-icon-${checkbox.id.split('-').pop()}`);
-
-        checkbox.addEventListener('change', function () {
-            const pokemonId = this.id.split('-').pop();
-            if (this.checked) {
-                caughtStates.push(pokemonId);
-            } else {
-                caughtStates = caughtStates.filter(id => id !== pokemonId);
-            }
-
-            pokeballIcon.style.display = this.checked ? 'block' : 'none';
-            saveCaughtStates(); // Save caught states to localStorage
-        });
-    });
-}
-
 // Function to display Pokémon information in the modal
 async function openModal(pokemonId) {
     const pokemon = await fetchPokemonData(pokemonId);
@@ -146,7 +154,7 @@ async function openModal(pokemonId) {
     document.getElementById('pokemonName').textContent = pokemon.name;
     document.getElementById('pokemonNumber').textContent = `#${pokemon.id.toString().padStart(4, '0')}`;
 
-    const modalImage = document.querySelector('#cardMain .card .pokemon-image');
+    const modalImage = document.querySelector('#cardPage .pokemon-image');
     modalImage.src = pokemon.largeImage; // Use the larger image for the modal
     modalImage.alt = pokemon.name;
 
@@ -156,7 +164,7 @@ async function openModal(pokemonId) {
 
     // Update abilities
     const abilityList = document.querySelector('.ability');
-    abilityList.innerHTML = ''; // Clear previous abilities
+    abilityList.innerHTML = ''; // Clear any previous abilities
     pokemon.abilities.forEach(ability => {
         const li = document.createElement('li');
         li.textContent = ability;
@@ -184,58 +192,22 @@ async function openModal(pokemonId) {
     });
 
     // Apply border color to modal card
-    const borderColors = ['#FEC9C3', '#D1F4DE', '#BCD5EF', '#C9C7EE', '#FCE2BC']; // Color palette
-    const borderColor = borderColors[(pokemon.id - 1) % borderColors.length]; // Match gallery logic
-    const modalCard = document.querySelector('#cardMain .card'); // Target the card in the modal
-    if (modalCard) {
-        modalCard.style.border = `6px solid ${borderColor}`;
-    }
+    const modalCard = document.querySelector('#cardPage .card');
+    const borderColor = borderColors[(pokemon.id - 1) % borderColors.length];
+    modalCard.style.border = `6px solid ${borderColor}`;
 
-    // Display Evolution Chain and apply borders
-    displayEvolution(pokemon.evolution, borderColors);
+    // Display Evolution Chain
+    displayEvolution(pokemon.evolution);
 
     // Show modal and overlay
     modal.style.display = 'flex';
     overlay.classList.add('show-overlay');
 }
 
-
-// Load more Pokémon
-function loadMorePokemons() {
-    const startIndex = loadedPokemons;
-    const endIndex = loadedPokemons + pokemonPerLoad;
-
-    generatePokemonCards(startIndex, endIndex);
-    loadedPokemons += pokemonPerLoad;
-}
-
-// Save caught states to localStorage
-function saveCaughtStates() {
-    localStorage.setItem('caughtPokemon', JSON.stringify(caughtStates));
-}
-
-// Load caught states from localStorage
-function loadCaughtStates() {
-    const storedPokemonIds = localStorage.getItem('caughtPokemon');
-    return storedPokemonIds ? JSON.parse(storedPokemonIds) : [];
-}
-
-
-// Event listeners
-document.addEventListener('DOMContentLoaded', () => {
-    loadMorePokemons(); // Load initial cards
-});
-
-loadMoreButton.addEventListener('click', loadMorePokemons);
-
-// Fix for correctly opening the modal with the clicked Pokémon data
-gallery.addEventListener('click', (event) => {
-    const card = event.target.closest('.card');
-    if (card && !event.target.closest('input')) {  // Ensure it's not the checkbox that was clicked
-        const pokemonId = card.dataset.pokemonId;
-        openModal(pokemonId); // Open modal with the correct Pokémon
-    }
-});
+// Modal functionality
+const modal = document.getElementById("cardPage");
+const overlay = document.getElementById("overlay");
+const closeButton = document.querySelector('.close');
 
 closeButton.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
@@ -244,3 +216,17 @@ function closeModal() {
     modal.style.display = 'none';
     overlay.classList.remove('show-overlay');
 }
+
+// Event listener for opening the modal when a Pokémon card is clicked
+gallery.addEventListener('click', (event) => {
+    const card = event.target.closest('.card');
+    if (card && !event.target.closest('input')) {  // Ensure it's not the checkbox that was clicked
+        const pokemonId = card.dataset.pokemonId;
+        openModal(pokemonId); // Open modal with the correct Pokémon
+    }
+});
+
+// Initialize Pokédex on page load
+document.addEventListener('DOMContentLoaded', () => {
+    displayCaughtPokemon(); // Display all caught Pokémon
+});

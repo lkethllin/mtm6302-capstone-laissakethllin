@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Capstone Project</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <header>
@@ -13,36 +13,24 @@
         <a href="index.html">Pokémon</a>
         <a href="pokedex.html">Pokédex</a>
         <img src="assets/profile.png" alt="Profile">
-    </header>    
-    
-<main>
-    <div class="message">
-        <h3>Hello <span id="displayUserName"></span>,</h3>
-        <h1>This is your Pokémon Gallery</h1>
-    </div>
-    
-    <div class="gallery">
-         <!-- <div class="card" data-pokemon-id="1">
-            <img src="assets/pokemons/bulbasaur.png" class="pokemon-image" alt="">
-            <div class="pokeinfo">
-                <div class="poketext">
-                    <h4>#0001</h4>
-                    <p>Bulbasaur</p>
-                </div>
-                <input type="checkbox" id="caught-checkbox">
-                <img src="assets/pokeball.png" alt="Pokéball" class="pokeball-icon" style="display:none;">
-            </div>
-        </div> -->
-    </div>
-    <button id="loadMore">Load More</button>
-</main>
-<div class="bg">
-    <footer>
-        <a href="login.html"><img src="assets/logo.png" alt="Logo"></a>
-        <a href="https://instagram.com" target="_blank" class="fa fa-instagram" ></a>
-    </footer>
-</div>
+    </header>
 
+    <main>
+        <div class="message">
+            <h3>Hello <span id="displayUserName"></span>,</h3>
+            <h1>This is your Pokédex</h1>
+        </div>
+        <div id="gallery" class="gallery">
+            <!-- Pokémon cards will be inserted here by JavaScript -->
+        </div>
+    </main>
+
+    <div class="bg">
+        <footer>
+            <a href="login.html"><img src="assets/logo.png" alt="Logo"></a>
+            <a href="https://instagram.com" target="_blank" class="fa fa-instagram"></a>
+        </footer>
+    </div>
 <!-- Modal (Card page) -->
 <div id="overlay" class="overlay"></div>
 <div id="cardPage" class="cardPage">
@@ -96,23 +84,13 @@
         <div id="evolutionSection">
     <!-- Evolution Section will be displayed here    -->
         </div>
-    </div>
-    <div class="cardFooter"></div>
-</div>
-
-
-    <script src="script.js"></script> 
-    <script src="extrascript.js"></script> 
-    <script> window.onload = function() {
-        // Retrieve the stored name from local storage
-        var name = localStorage.getItem("userName");
-    
-        // This will display the name in the <span> element
-        document.getElementById("displayUserName").textContent = name || "Trainer";
-    } </script>
-
-
-
+    <script src="pokedex.js"></script>
+    <script src="extrascript.js"></script>
+    <script>
+        window.onload = function() {
+            var name = localStorage.getItem("userName");
+            document.getElementById("displayUserName").textContent = name || "Trainer";
+        };
+    </script>
 </body>
-
 </html>

@@ -42,4 +42,21 @@ Personal Touch – Login Page: To give the project a more app-like experience, I
 
 Next Steps: For the next phase, I will refine all functions and clean up the code to ensure it is easily readable. I anticipate needing to adjust some of the code to fetch API data, but for now, the project will remain as is.
 
+Capstone Project Part -4
 
+
+API Integration
+Successfully implemented API calls to retrieve Pokémon data dynamically, including their types, abilities, and evolution chains.
+Processed and displayed the retrieved data in a clean and organized manner.
+
+Caught Pokémon Page
+Introduced a new page dedicated to displaying all caught Pokémon.
+Integrated functionality to toggle the caught state using checkboxes. Cards are automatically hidden if unchecked.
+Synced this feature with session storage to ensure consistent behavior across sessions.
+
+Dynamic Styling
+Adjusted the CSS to dynamically change the border color of each Pokémon card based on its type, enhancing visual differentiation.
+Ensured consistency in the updated design across all pages.
+
+Functional Synchronization
+Ensured all functionality, such as the caught Pokémon feature, is synchronized across multiple pages (main Pokédex and the caught Pokémon page).
